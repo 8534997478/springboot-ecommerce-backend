@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Secure Payment - E-Shop</title>
+  <link rel="stylesheet" th:href="@{/style.css}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      background-color: #f4f6f8;
+    }
+
+    .payment-container {
+      max-width: 500px;
+      margin: 80px auto;
+      background: white;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      font-size: 26px;
+      color: #2c3e50;
+    }
+
+    .pay-btn {
+      margin-top: 30px;
+      background: #0d6efd;
+      color: white;
+      padding: 14px 28px;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .pay-btn:hover {
+      background: #084298;
+    }
+
+    .info {
+      font-size: 14px;
+      color: #555;
+      margin-top: 20px;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 20px;
+      color: #0d6efd;
+    }
+  </style>
+</head>
+<body>
+
+<div class="payment-container">
+  <div class="logo">E-Shop</div>
+  <h2>Complete Your Purchase</h2>
+  <p class="info">Click the button below to pay securely via Razorpay.</p>
+  <button id="rzp-button" class="pay-btn">Pay ₹<span th:text="${order.amount}"></span></button>
+</div>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script th:inline="javascript">
+  /*<![CDATA[*/
+  let razorpayOrder = /*[[${razorpayOrder}]]*/ '{}';
+  let orderData = JSON.parse(razorpayOrder);
+
+  let options = {
+    key: /*[[${apiKey}]]*/ "", // Replace with your Razorpay public key if not using Thymeleaf
+    amount: orderData.amount,
+    currency: "INR",
+    name: "E-Shop",
+    description: "Order Payment",
+    order_id: orderData.id,
+    handler: function (response) {
+      window.location.href = "/payment/success?paymentId=" + response.razorpay_payment_id;
+    },
+    prefill: {
+      name: "Customer",
+      email: "customer@example.com"
+    },
+    theme: {
+      color: "#0d6efd"
+    }
+  };
+
+  let rzp1 = new Razorpay(options);
+  document.getElementById('rzp-button').onclick = function (e) {
+    rzp1.open();
+    e.preventDefault();
+  };
+  /*]]>*/
+</script>
+
+</body>
+</html>

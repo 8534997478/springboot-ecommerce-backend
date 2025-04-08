@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home page</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="logo">E-Shop</div>
+    <ul class="nav-links">
+        <li><a th:href="@{/home}">Home</a></li>
+        <li><a th:href="@{/aboutUs}">About Us</a></li>
+        <li><a th:href="@{/products}">Products</a></li>
+        <li><a th:href="@{/contact}">Contact Us</a></li>
+        <li><a th:href="@{/login}" class="btn">Login</a></li>
+    </ul>
+    <div class="hamburger" onclick="toggleMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+</nav>
+<div class="hero">
+    <h1>Welcome to E-Shop</h1>
+    <p>Your one-stop shop for the best products.</p>
+    <a href="/login" class="btn">Shop Now</a>
+</div>
+
+
+
+<script th:src="@{/script.js}"></script>
+</body>
+</html>

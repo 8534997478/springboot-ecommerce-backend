@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>About Us - E-Shop</title>
+  <link rel="stylesheet" th:href="@{/style.css}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar">
+  <div class="logo">E-Shop</div>
+  <ul class="nav-links">
+    <li><a th:href="@{/home}">Home</a></li>
+    <li><a th:href="@{/aboutUs}">About Us</a></li>
+    <li><a th:href="@{/products}">Products</a></li>
+    <li><a th:href="@{/contact}">Contact Us</a></li>
+    <li><a th:href="@{/login}" class="btn">Login</a></li>
+  </ul>
+  <div class="hamburger" onclick="toggleMenu()">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</nav>
+
+<!-- Place Order Section -->
+<section class="contact-section">
+  <h2>Place Order</h2>
+
+  <div th:if="${successMessage}" class="alert" id="successAlert">
+    <p th:text="${successMessage}"></p>
+  </div>
+
+  <form th:action="@{/placeOrder}" method="post" class="contact-form">
+    <label for="name">Product Name:</label>
+    <input type="text" id="name" name="name" th:value="${product.name}" readonly />
+
+    <label for="price">Product Price:</label>
+    <input type="text" id="price" name="price" th:value="${product.price}" readonly />
+
+    <label for="quantity">Quantity:</label>
+    <input type="number" id="quantity" name="quantity" value="1" min="1" required/>
+
+    <button type="submit">Confirm Order</button>
+  </form>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-container">
+    <div class="footer-section">
+      <h3>Quick Links</h3>
+      <ul>
+        <li><a th:href="@{/home}">Home</a></li>
+        <li><a th:href="@{/aboutUs}">About Us</a></li>
+        <li><a th:href="@{/products}">Products</a></li>
+        <li><a th:href="@{/contact}">Contact</a></li>
+        <li><a th:href="@{/login}">Login</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-section">
+      <h3>Contact Us</h3>
+      <p>Email: 11072002nikhilsharma@gmail.com</p>
+      <p>Phone: +91 85349974xx</p>
+      <p>Address: 123 E-Shop Lane, saharanpur, india</p>
+    </div>
+
+    <div class="footer-section">
+      <h3>Follow Us</h3>
+      <div class="social-icons">
+        <a href="#"><i class="fab fa-facebook"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-linkedin"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <p class="footer-bottom">&copy; 2025 E-Shop. All rights reserved.</p>
+</footer>
+
+<script>
+  // Show alert on successful order
+  window.onload = function () {
+    var successAlert = document.getElementById("successAlert");
+    if (successAlert && successAlert.innerText.trim() !== "") {
+      alert(successAlert.innerText.trim());
+    }
+  };
+
+  // Optional: hamburger menu toggle function
+  function toggleMenu() {
+    document.querySelector('.nav-links').classList.toggle('active');
+  }
+</script>
+
+<script th:src="@{/script.js}"></script>
+</body>
+</html>

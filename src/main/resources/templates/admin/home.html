@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Panel - E-Shop</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+          integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar">
+    <div class="logo">E-Shop Admin</div>
+    <ul class="nav-links">
+        <li><a th:href="@{/home}">Home</a></li>
+        <li><a th:href="@{/aboutUs}">About Us</a></li>
+        <li><a th:href="@{/products}">Products</a></li>
+        <li><a th:href="@{/contact}">Contact Us</a></li>
+        <li><a th:href="@{/login}" class="btn">Login</a></li>
+    </ul>
+</nav>
+
+<!-- Admin Table -->
+<div class="container">
+    <h2>Admin Management</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Admin Name</th>
+            <th>Admin Email</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="admin : ${adminList}">
+            <td th:text="${admin.id}"></td>
+            <td th:text="${admin.email}"></td>
+            <td th:text="${admin.name}"></td>
+            <td>
+                <a th:href="@{'/update/admin/'+${admin.id}}" class="btn btn-warning">Edit</a>
+                <a th:href="@{'/delete/admin/'+${admin.id}}" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- Add Admin Button -->
+    <div class="button-container">
+        <a th:href="@{/admin/addAdmin}" class="btn btn-success">Add Admin</a>
+    </div>
+</div>
+
+<!-- User Table -->
+<div class="container">
+    <h2>User Management</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>User Name</th>
+            <th>User Email</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${userList}">
+            <td th:text="${user.id}"></td>
+            <td th:text="${user.name}"></td>
+            <td th:text="${user.email}"></td>
+            <td>
+                <a th:href="@{'/update/user/'+${user.id}}" class="btn btn-warning">Edit</a>
+                <a th:href="@{'/delete/user/'+${user.id}}" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- Add User Button -->
+    <div class="button-container">
+        <a th:href="@{/user/addUser}" class="btn btn-success">Add User</a>
+    </div>
+</div>
+<!-- product Table -->
+<div class="container">
+    <h2>Products Management</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Products Name</th>
+            <th>Price</th>
+            <th>Discription</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="product : ${productList}">
+            <td th:text="${product.id}"></td>
+            <td th:text="${product.name}"></td>
+            <td th:text="${product.price}"></td>
+            <td th:text="${product.description}"></td>
+            <td>
+                <a th:href="@{'/update/product/'+${product.id}}" class="btn btn-warning">Edit</a>
+                <a th:href="@{'/delete/product/'+${product.id}}" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- Add User Button -->
+    <div class="button-container">
+        <a th:href="@{/product/addProducts}" class="btn btn-success">Add Products</a>
+    </div>
+</div>
+<!-- order Table -->
+<div class="container">
+
+    <!-- order Table -->
+    <div class="container">
+        <h2>Order Management</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>User Id</th>
+                <th>Quantity</th>
+                <th>Product Name</th>
+                <th>Price</th>
+                <th>Amount</th>
+                <th>Date</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="order : ${orderList}">
+                <td th:text="${order.id}"></td>
+                <td th:text="${order.user.id}"></td>
+                <td th:text="${order.quantity}"></td>
+                <td th:text="${order.name}"></td>
+
+
+                <td th:text="${order.price}"></td>
+                <td th:text="${order.amount}"></td>
+<!--                <td th:text="${#dates.format(order.date, 'dd-MM-yyyy HH:mm')}"></td>-->
+                <td th:text="${#temporals.format(order.date, 'dd-MM-yyyy HH:mm')}"></td>
+
+                <td>
+
+                    <a th:href="@{'/delete/order/'+${order.id}}" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        
+    </div>
+
+
+
+
+</div>
+<!-- Footer -->
+<footer>
+    <div class="footer-container">
+        <div class="footer-section">
+            <h3>Quick Links</h3>
+            <ul>
+                <li><a th:href="@{/home}">Home</a></li>
+                <li><a th:href="@{/aboutUs}">About Us</a></li>
+                <li><a th:href="@{/products}">Products</a></li>
+                <li><a th:href="@{/contact}">Contact</a></li>
+                <li><a th:href="@{/login}">Login</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-section">
+            <h3>Contact Us</h3>
+            <p>Email: 11072002nikhilsharma@gmail.com</p>
+            <p>Phone: +91 85349974xx</p>
+            <p>Address: 123 E-Shop Lane, saharanpur, india</p>
+        </div>
+
+        <div class="footer-section">
+            <h3>Follow Us</h3>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <p class="footer-bottom">&copy; 2025 E-Shop. All rights reserved.</p>
+</footer>
+
+<script th:src="@{/script.js}"></script>
+
+</body>
+</html>
